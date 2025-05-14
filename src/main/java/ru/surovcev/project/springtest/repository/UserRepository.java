@@ -1,9 +1,8 @@
 package ru.surovcev.project.springtest.repository;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import ru.surovcev.project.springtest.model.User;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * 5.   Создайте репозиторий для работы с сущностью User (используя Spring Data JPA)
  */
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     /**
      * 2.   Напишите сервисный класс UserServiceImpl с методом findUserById(Long id)
@@ -22,7 +21,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
      * 3.   Создайте REST-эндпоинт POST /api/users, который принимает JSON и сохраняет пользователя.
-     * 9.   Использую и для обновления
+     * 10.   Использую и для обновления
      */
     User save(User user);
 

@@ -75,12 +75,13 @@ public class UserController {
     }
 
     /**
-     * 9.   Реализуйте метод, который обновляет данные пользователя по его ID.
+     * 10.   Реализуйте метод, который обновляет данные пользователя по его ID.
      */
     @PutMapping("/user-by-id")
     public User updateUser(
             @RequestParam long id,
             @RequestBody User user) {
+        logger.info("Обновление пользователя: " + user.toString());
         return userService.updateUser(id, user);
     }
 
@@ -100,11 +101,12 @@ public class UserController {
     @GetMapping("/user-all")
     public Page<User> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
-    ) {
+            @RequestParam(defaultValue = "5") int size,
+            Pageable pageable) {
         logger.info("Поиск всех пользователей с пагинацией: " + page + " " + size);
-        Pageable pageable = PageRequest.of(page, size);
-        return userService.findAllUsers(pageable);
+
+        Pageable paging = PageRequest.of(page, size);
+        return userService.findAllUsers(paging);
     }
 
 }

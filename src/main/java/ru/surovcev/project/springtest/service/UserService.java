@@ -2,10 +2,7 @@ package ru.surovcev.project.springtest.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.surovcev.project.springtest.model.User;
 import ru.surovcev.project.springtest.repository.UserRepository;
 
@@ -17,9 +14,6 @@ import java.util.List;
  */
 @Service
 public class UserService {
-//    private final User user;
-//    public UserServiceImpl(User user) {this.user = user;}
-
     /**
      * Здесь я спецом не использую @Autowired а делаю DI через конструктор
      * Насколько я понял - данный метод более предпочтительный
@@ -51,7 +45,7 @@ public class UserService {
     }
 
     /**
-     * 9.   Реализуйте метод, который обновляет данные пользователя по его ID.
+     * 10.   Реализуйте метод, который обновляет данные пользователя по его ID.
      */
     public User updateUser(long id,
                            User user){
@@ -73,7 +67,7 @@ public class UserService {
      * 12. Напишите метод, который возвращает пользователей с пагинацией (используя Pageable)
      */
     public Page<User> findAllUsers(Pageable pageable) {
-        return (Page<User>) userRepository.findAll();
-    }
+        return userRepository.findAll(pageable);
+    };
 
 }
