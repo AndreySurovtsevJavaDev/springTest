@@ -42,7 +42,7 @@ public class UserController {
     }
 
     /**
-     * 2.   Напишите сервисный класс UserService с методом findUserById(Long id)
+     * 2.   Напишите сервисный класс UserServiceImpl с методом findUserById(Long id)
      * @param id
      * @return
      */
@@ -51,6 +51,19 @@ public class UserController {
         logger.info("Поиск пользователя по id: " + id);
         return userService.findUserById(id);
     }
+
+    /**
+     * 8.   Создайте кастомное исключение и обработайте его с помощью @ControllerAdvice.
+     * @param exception
+     * @return
+     */
+//    @ExceptionHandler(UserNotFoundException.class)
+//    public ResponseEntity<ErrorMessage> handlerException(UserNotFoundException exception){
+//        return ResponseEntity
+//                .status(HttpStatus.NOT_FOUND)
+//                .body(new ErrorMessage(exception.getMessage()));
+//    }
+
 
     /**
      * 3.   Создайте REST-эндпоинт POST /api/users, который принимает JSON и сохраняет пользователя.
@@ -64,9 +77,16 @@ public class UserController {
     /**
      * 9.   Реализуйте метод, который обновляет данные пользователя по его ID.
      */
+    @PutMapping("/user-by-id")
+    public User updateUser(
+            @RequestParam long id,
+            @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
 
     /**
-     * 11. Создайте REST-эндпоинт для удаления пользователя по ID.
+     * 11.  Создайте REST-эндпоинт для удаления пользователя по ID.
      */
     @DeleteMapping("/user-by-id")
     public void deleteUserById(@RequestParam("id") long id) {

@@ -1,7 +1,9 @@
 package ru.surovcev.project.springtest.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.surovcev.project.springtest.model.User;
 
@@ -14,12 +16,13 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
-     * 2.   Напишите сервисный класс UserService с методом findUserById(Long id)
+     * 2.   Напишите сервисный класс UserServiceImpl с методом findUserById(Long id)
      */
     User findById(long id);
 
     /**
      * 3.   Создайте REST-эндпоинт POST /api/users, который принимает JSON и сохраняет пользователя.
+     * 9.   Использую и для обновления
      */
     User save(User user);
 
@@ -35,6 +38,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * 11.  Создайте REST-эндпоинт для удаления пользователя по ID.
      */
     User deleteById(long id);
-
-
 }

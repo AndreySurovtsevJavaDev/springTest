@@ -2,20 +2,23 @@ package ru.surovcev.project.springtest.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.surovcev.project.springtest.model.User;
 import ru.surovcev.project.springtest.repository.UserRepository;
 
 import java.util.List;
 
 /**
- * 2.   Напишите сервисный класс UserService с методом findUserById(Long id)
+ * 2.   Напишите сервисный класс UserServiceImpl с методом findUserById(Long id)
  * для этого создадим класс-модель User, класс-репозиторий и для теста будем работать с H2 в роли БД (это заодно и другие задачки зацепит)
  */
 @Service
 public class UserService {
 //    private final User user;
-//    public UserService(User user) {this.user = user;}
+//    public UserServiceImpl(User user) {this.user = user;}
 
     /**
      * Здесь я спецом не использую @Autowired а делаю DI через конструктор
@@ -28,6 +31,7 @@ public class UserService {
 
     public User findUserById(long id) {
         return userRepository.findById(id);
+//                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
     }
 
     /**
@@ -44,6 +48,18 @@ public class UserService {
      */
     public List<User> findUsersOverAge(int age) {
         return userRepository.findUsersOverAge(18);
+    }
+
+    /**
+     * 9.   Реализуйте метод, который обновляет данные пользователя по его ID.
+     */
+    public User updateUser(long id,
+                           User user){
+        User updateUser = userRepository.findById(id);
+        updateUser.setName(user.getName());
+        updateUser.setAge(user.getAge());
+
+        return  userRepository.save(user); // автообновление
     }
 
     /**

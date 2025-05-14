@@ -2,7 +2,6 @@ package ru.surovcev.project.springtest.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,16 +15,18 @@ public class User {
     @Column(name = "age")
     private int age;
 
-    public long getId() {return id;}
-    public void setId(long id) {this.id = id;}
-    public int getAge() {return age;}
-
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
-    public void setAge(int age) {this.age = age;}
-
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", age=" + age + "]";
     }
+
+    public long getId() {return id;}
+    public void setId(long id) {this.id = id;}
+
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+
+    public int getAge() {return age;}
+
+    public void setAge(int age) {this.age = age;}
 }
