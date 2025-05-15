@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import ru.surovcev.project.springtest.exception.UserNotFoundException;
 import ru.surovcev.project.springtest.model.User;
 import ru.surovcev.project.springtest.repository.UserRepository;
 import ru.surovcev.project.springtest.service.UserService;

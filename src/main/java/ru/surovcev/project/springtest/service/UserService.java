@@ -54,7 +54,7 @@ public class UserService {
     public User updateUser(long id,
                            User user){
         User updateUser = userRepository.findById(id);
-        if (user == null) {
+        if (updateUser == null) {
             throw new UserNotFoundException("Пользователь с таким ID " + id + " не найден");
         }
         updateUser.setName(user.getName());
@@ -67,6 +67,10 @@ public class UserService {
      * 11.  Создайте REST-эндпоинт для удаления пользователя по ID.
      */
     public void deleteUserById(long id) {
+        User deleteUser = userRepository.findById(id);
+        if (deleteUser == null) {
+            throw new UserNotFoundException("Пользователь с таким ID " + id + " не найден");
+        }
         userRepository.deleteById(id);
     }
 
