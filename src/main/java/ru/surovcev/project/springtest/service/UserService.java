@@ -3,6 +3,7 @@ package ru.surovcev.project.springtest.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.surovcev.project.springtest.exception.UserNotFoundException;
 import ru.surovcev.project.springtest.model.User;
 import ru.surovcev.project.springtest.repository.UserRepository;
 
@@ -24,8 +25,11 @@ public class UserService {
     }
 
     public User findUserById(long id) {
-        return userRepository.findById(id);
-//                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+        User user = userRepository.findById(id);
+        if (user == null) {
+            throw new UserNotFoundException("Пользователь с таким ID " + id + " не найден");
+        }
+        return user;
     }
 
     /**
@@ -50,6 +54,9 @@ public class UserService {
     public User updateUser(long id,
                            User user){
         User updateUser = userRepository.findById(id);
+        if (user == null) {
+            throw new UserNotFoundException("Пользователь с таким ID " + id + " не найден");
+        }
         updateUser.setName(user.getName());
         updateUser.setAge(user.getAge());
 

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import ru.surovcev.project.springtest.exception.UserNotFoundException;
 import ru.surovcev.project.springtest.model.User;
 import ru.surovcev.project.springtest.repository.UserRepository;
 import ru.surovcev.project.springtest.service.UserService;
@@ -53,19 +54,6 @@ public class UserController {
     }
 
     /**
-     * 8.   Создайте кастомное исключение и обработайте его с помощью @ControllerAdvice.
-     * @param exception
-     * @return
-     */
-//    @ExceptionHandler(UserNotFoundException.class)
-//    public ResponseEntity<ErrorMessage> handlerException(UserNotFoundException exception){
-//        return ResponseEntity
-//                .status(HttpStatus.NOT_FOUND)
-//                .body(new ErrorMessage(exception.getMessage()));
-//    }
-
-
-    /**
      * 3.   Создайте REST-эндпоинт POST /api/users, который принимает JSON и сохраняет пользователя.
      */
     @PostMapping("/user")
@@ -91,6 +79,7 @@ public class UserController {
      */
     @DeleteMapping("/user-by-id")
     public void deleteUserById(@RequestParam("id") long id) {
+
         logger.info("Удаление пользователя по id: " + id);
         userService.deleteUserById(id);
     }
@@ -104,7 +93,6 @@ public class UserController {
             @RequestParam(defaultValue = "5") int size,
             Pageable pageable) {
         logger.info("Поиск всех пользователей с пагинацией: " + page + " " + size);
-
         Pageable paging = PageRequest.of(page, size);
         return userService.findAllUsers(paging);
     }
