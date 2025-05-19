@@ -1,12 +1,13 @@
 package ru.surovcev.project.springtest.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.surovcev.project.springtest.data.UserResponseDto;
+import ru.surovcev.project.springtest.mapper.UserMapper;
 import ru.surovcev.project.springtest.model.User;
-import ru.surovcev.project.springtest.repository.UserRepository;
 import ru.surovcev.project.springtest.service.UserService;
 
 import java.util.List;
@@ -25,20 +26,30 @@ public class UserController {
     private static Logger logger =
             Logger.getLogger(UserController.class.getName());
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private UserRepository userRepository;
+    public UserController(UserService userService, UserMapper userMapper) {
+        this.userService = userService;
+        this.userMapper = userMapper;
+    }
 
     /**
      *
      * @return
      */
-    @GetMapping("/user-over-18")
-    public List<User> findUsersByAge() {
-        logger.info("Поиск пользователей старше 18");
-        return userService.findUsersOverAge(18);
+//    @GetMapping("/user-over-18")
+//    public List<User> findUsersByAge() {
+//        logger.info("Поиск пользователей старше 18");
+//        return userService.findUsersOverAge(18);
+//    }
+
+    @GetMapping("/v2/user-over-18")
+    public ResponseEntity<List<UserResponseDto>> findUsersByAge() {
+        logger.info("Поиск пользователя старше 18 лет");
+        List<User> users = userService.findUsersOverAge(18);
+        List<UserResponseDto> userResponseDtoList = userMapper.toUserResponseDtoList(users);
+        return ResponseEntity.ok(userResponseDtoList);
     }
 
     /**
@@ -51,6 +62,7 @@ public class UserController {
         logger.info("Поиск пользователя по id: " + id);
         return userService.findUserById(id);
     }
+
 
     /**
      * 3.   Создайте REST-эндпоинт POST /api/users, который принимает JSON и сохраняет пользователя.
